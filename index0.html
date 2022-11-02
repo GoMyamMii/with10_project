@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>댓글달기</title>
+
+    <script>
+        $(document).ready(function () {
+            show_comment();
+        });
+
+        function show_comment() {
+            $.ajax({
+                type: 'GET',
+                url: '/comments',
+                data: {},
+                success: function (response) {
+
+                    let rows = response['cmts']
+                    for (let i = 0; i < rows.length; i++) {
+                        let name = rows[i]['name']
+                        let comment = rows[i]['comment']
+                        let num = rows[i]['num']
+                        let like = rows[i]['like']
+
+                        let temp_html = `<tr>
+                                            <th>${name}</th>
+                                            <th>${comment}</th>
+                                            <th><button onclick="num_comment(${num})">삭제</button></th>
+                                            <th><button onclick="like_comment(${like})">좋아요</button></th>
+                                         </tr>`
+
+                        $('#comment_list').append(temp_html)
+                    }
+                }
+            });
+        }
+
+        function save_comment() {
+            let name = $('#name').val()
+            let comment = $('#comment').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/comments",
+                data: {name_give: name, comment_give: comment},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function num_comment(num) {
+            $.ajax({
+                type: "POST",
+                url: "/comments/num",
+                data: {num_give: num},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+        function like_comment(like) {
+            $.ajax({
+                type: "POST",
+                url: "/comments/like",
+                data: {like_give: like},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>댓글 달기</h1>
+    <h3>정상작동 기원👏</h3>
+    <div>
+        <p>이름 : <input id="name" type="text">
+        <p/>
+        <p>댓글 : <input id="comment" type="text">
+        <p/>
+        <button onclick="save_comment()">작성하기</button>
+    </div>
+    <div id="comment_list">
+    </div>
+</body>
+</html>
