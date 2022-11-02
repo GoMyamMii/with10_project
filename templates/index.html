@@ -105,14 +105,14 @@
                         let name = rows[i]['name']
                         let numb = rows[i]['numb']
                         let comment = rows[i]['comment']
-                        let good = rows[i]['good']
+                        let like = rows[i]['like']
 
 
                         let temp_html = `
                                         <div id="comment-box">
                                             <p class="name">${name}</p>
                                             <p class="comment">${comment}</p>
-                                            <button id="countBtn" onclick="good_comment(${numb})">좋아요</button><span id="count">${good}</span>개
+                                            <button id="countBtn" onclick="like_comment(${numb})">좋아요</button><span id="count">${like}</span>개
                                             <button onclick="delete_comment(${numb})">삭제</button>
                                         </div>
                                         `
@@ -143,6 +143,18 @@
                 type: "POST",
                 url: "/comments/delete",
                 data: {numb_give:numb},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function like_comment(like) {
+            $.ajax({
+                type: "POST",
+                url: "/comments/like",
+                data: {like_give: like},
                 success: function (response) {
                     alert(response["msg"])
                     window.location.reload()
