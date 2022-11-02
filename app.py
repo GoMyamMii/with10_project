@@ -9,6 +9,26 @@ db = client.dbsparta
 def home():
     return render_template('index.html')
 
+@app.route('/cs')
+def cs():
+    return render_template('cs.html')
+
+@app.route('/hn')
+def hn():
+    return render_template('hanul.html')
+
+@app.route('/hh')
+def hh():
+    return render_template('heehyeon.html')
+
+@app.route('/js')
+def js():
+    return render_template('JS.html')
+
+@app.route('/ng')
+def ng():
+    return render_template('kng.html')
+
 
 @app.route("/comments", methods=["POST"])
 def comment_post():
@@ -29,11 +49,10 @@ def comment_post():
     return jsonify({'msg': '등록 완료!'})
 
 
-@app.route("/comments", methods=["GET"])
-def comment_get():
-    comment_list = list(db.comments.find({}, {'_id': False}))
-
-    return jsonify({'comments':comment_list})
+@app.route("/comment", methods = ["GET"])
+def comment_get() :
+    comment_list = list(db.comment.find({}, {'_id': False}))
+    return jsonify({'comments' : comment_list})
 
 
 
