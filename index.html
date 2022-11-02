@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>인생 버킷리스트</title>
+
+    <style>
+
+    </style>
+    <script>
+
+        /*
+        $(document).ready(function () {
+            show_comment();
+        });
+
+        function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/comments",
+                data: {},
+                success: function (response) {
+                    let rows = response['comments']
+                    for (let i=0; i < rows.length; i++) {
+                        let name = rows[i]['name']
+                        let comment = rows[i]['comment']
+
+                        let temp_html = `<tr>
+                                            <td>${name}</td>
+                                            <td>${comment}</td>
+                                            <td><button type="button">좋아요</button></td>
+                                            <td><button type="button">삭제</button></td>
+                                        </tr>`
+                        $('#comment-list').append(temp_html)
+                    }
+
+                }
+            });
+        }
+*/
+
+        function save_comment() {
+            let name = $('#name').val()
+            let comment = $('#comment').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/comments",
+                data: {name_give:name, comment_give:comment},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function done_comment(numb) {
+            $.ajax({
+                type: "POST",
+                url: "/comments/done",
+                data: {numb_give:numb},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+    </script>
+
+
+</head>
+<body>
+
+    <div class="mybox">
+        <input id="name" type="text" placeholder="닉네임">
+        <input id="comment" type="text" placeholder="코멘트">
+        <button onclick="save_comment()" type="button">등록하기</button>
+    </div>
+
+    <div class="comment-list" id="comment-list">
+        <tr>
+            <td>닉네임</td>
+            <td>(댓글 ~~ 댓글)</td>
+            <td><button type="button">좋아요</button></td>
+            <td><button type="button">삭제</button></td>
+        </tr>
+    </div>
+
+
+</body>
+</html>
