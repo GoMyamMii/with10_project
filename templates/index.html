@@ -97,7 +97,7 @@
         function show_comment(){
             $.ajax({
                 type: "GET",
-                url : "/comment",
+                url : "/comments",
                 data : {},
                 success: function(response){
                     let rows = response['comments']
@@ -122,31 +122,7 @@
             })
 
         }
-/*
-        function show_comment() {
-            $.ajax({
-                type: "GET",
-                url: "/comments",
-                data: {},
-                success: function (response) {
-                    let rows = response['comments']
-                    for (let i=0; i < rows.length; i++) {
-                        let name = rows[i]['name']
-                        let comment = rows[i]['comment']
 
-                        let temp_html = `<div id="comment-box">
-                                            <p class="name">${name}</p>
-                                            <p class="comment">${comment}</p>
-                                            <button id="countBtn" onclick="good_comment(${numb})">좋아요</button><span id="count">${good}</span>개
-                                            <button onclick="delete_comment(${numb})">삭제</button>
-                                        </div>`
-                        $('#comment-list').append(temp_html)
-                    }
-
-                }
-            });
-        }
-*/
         function save_comment() {
             let name = $('#name').val()
             let comment = $('#comment').val()
@@ -162,11 +138,11 @@
             });
         }
 
-        function delete_comment(num){
+        function delete_comment(numb){
             $.ajax({
                 type: "POST",
                 url: "/comments/delete",
-                data: {num_give:num},
+                data: {numb_give:numb},
                 success: function (response) {
                     alert(response["msg"])
                     window.location.reload()
