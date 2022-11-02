@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>조희현</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+    <style>
+        *{font-family: 'Gowun Batang', serif; letter-spacing: 1px;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        body{background-color: rgba(167, 152, 229, 0.70);
+        }
+        .image, span {width: 100%; display: flex; justify-content: center; flex-direction: row;}
+        span {margin-top: 15px; font-size: 20px; color: #3f3f3f;
+        }
+        img:hover{ border:5px solid white; transition: 0.2s;}
+        .image img{width: 30%;margin: 15px; border-radius: 15px;}
+        .introduce{width: 50%; margin: 15px auto; display: none;}
+
+        .card{margin-top: 15px;
+            --bs-card-cap-bg: rgb(209 225 251);}
+        .card a{color: black; text-decoration: none;}
+        .card-body p{padding: 0px 10px;}
+
+    </style>
+    <script>
+        function click_box() {
+            $('.introduce').slideToggle();
+        }
+    </script>
+</head>
+<body>
+    <span> ⬇ Click ⬇ </span>
+
+        <div class="image">
+            <img id="image" src="../static/images/hh.JPG" onclick="click_box()" />
+        </div>
+        <div class="introduce">
+            <div class="card">
+                <div class="card-header">
+                    🙂 이름
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>조희현</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    🙂 MBTI
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>ISFP : 호기심 많은 예술가</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    🙂 객관적으로 살펴본 나의 장점
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>친절한 성격이고, 타인의 감정에 공감을 잘합니다.</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    🙂 나의 협업 스타일
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>협업은 커뮤니케이션이 중요하다고 생각합니다.<br> 그래서 다른 사람들의 이야기를 경청하고 의견을 존중하며, &nbsp; 직접 이야기 할 때도 상대방의 입장과 기분을 고려하여 이야기 합니다.</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    🙂 블로그주소
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p><a href="https://velog.io/@jhh7929">https://velog.io/@jhh7929</a></p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

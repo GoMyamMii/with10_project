@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <title>test</title>
+
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .mypic {
+            width: 100%;
+            height: 300px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mypic > h1 {
+            font-size: 30px;
+        }
+
+        .mybox {
+            width: 95%;
+            max-width: 700px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px lightblue;
+            margin: 20px auto;
+        }
+
+        .mycomment {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mycomment> input {
+            width: 70%;
+        }
+
+        .mybox > li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 10px;
+            min-height: 48px;
+        }
+
+        .mybox > li > h2 {
+            max-width: 75%;
+            font-size: 20px;
+            font-weight: 500;
+            margin-right: auto;
+            margin-bottom: 0px;
+        }
+
+
+         #comment-list>li>button { margin-right: 10px;}
+         #cards-box>.col{width: 20%;}
+         .col a{text-decoration:none;}
+         .card-text{text-align: center;  color: black}
+    </style>
+    <script>
+        $(document).ready(function(){
+            show_comment();
+        })
+        function show_comment(){
+            $.ajax({
+                type: "GET",
+                url : "/comment",
+                data : {},
+                success: function(response){
+                    let rows = response['comments']
+                    for ( let i = 0; i < rows.length; i++){
+                        let name = rows[i]['name']
+                        let numb = rows[i]['numb']
+                        let comment = rows[i]['comment']
+                        let good = rows[i]['good']
+
+
+                        let temp_html = `
+                        <li>
+                            <h2>${comment} <span> - ${name}</span></h2>
+                            <button id="countBtn" onclick="good_comment(${numb})">좋아요</button><span id="count">${good}</span>개
+                            <button onclick="delete_comment(${numb})">삭제</button>
+
+                        </li>
+                        `
+                        $('#comment-list').append(temp_html)
+                    }
+                }
+            })
+
+        }
+
+        function save_comment(){
+            let comment = $('#comment').val()
+            let name = $('#name').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/comment",
+                data:  { name_give: name , comment_give : comment },
+                success: function (response){
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+
+            function delete_comment(numb){
+            $.ajax({
+             type: "POST",
+                url: "/comment/delete",
+                data: {numb_give: numb},
+                success: function (response){
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            })
+        }
+
+
+    </script>
+</head>
+<body>
+    <div class="mypic">
+        <h1>< comment List ></h1>
+    </div>
+    <div class="mycards">
+    <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+        <div class="col">
+          <a href="/cs"><div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">강창순</p>
+                </div>
+            </div></a>
+        </div>
+        <div class="col">
+          <a href="/hn"><div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">김한울</p>
+                </div>
+            </div></a>
+        </div>
+        <div class="col">
+          <a href="/hh"><div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">조희현</p>
+                </div>
+            </div></a>
+        </div>
+        <div class="col">
+          <a href="/js"><div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">이재성</p>
+                </div>
+            </div></a>
+        </div>
+        <div class="col">
+          <a href="/ng"><div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">김남규</p>
+                </div>
+            </div></a>
+        </div>
+
+</div>
+</div>
+    <div class="mybox">
+        <div class="mycomment">
+            <input id="name" class="form-control" type="text" placeholder="이름">
+            <input id="comment" class="form-control" type="text" placeholder="한마디를 입력하세요">
+            <button onclick="save_comment()" type="button" class="btn btn-outline-primary">기록하기</button>
+        </div>
+    </div>
+    <div class="mybox" id="comment-list">
+
+    </div>
+    </body>
+</html>
