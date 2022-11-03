@@ -66,11 +66,23 @@
             margin-top: 10px;
         }
 
+
+
+
+        .card-box {
+            position: relative;
+            max-width: 700px;
+            height: 400px;
+        }
+
         .card-img-top {
-            width: 250px;
-            height: 300px;
+            position: absolute;
+            transform: translate(50,50);
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
+
 
 
 
@@ -185,7 +197,9 @@
     <div class="col">
         <a href="/cs">
             <div class="card h-100">
-                <img src="../static/kcs.jpeg" class="card-img-top" alt="cs_image">
+                <div class="card-box">
+                    <img src="../static/kcs.jpeg" class="card-img-top" alt="cs_image">
+                </div>
                 <div class="card-body">
                     <h6 class="card-title">강창순/INTP</h6>
                     <p class="card-text">고먐미 좋아하세요?</p>
@@ -197,8 +211,10 @@
     <div class="col">
         <a href="/ng">
             <div class="card h-100">
-                <img src="../static/kng.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
+                <div class="card-box">
+                    <img src="../static/kng.jpeg" class="card-img-top" alt="...">
+                </div>
+                    <div class="card-body">
                     <h6 class="card-title">김남규/ENFP</h6>
                     <p class="card-text">자유로운 영혼</p>
                 </div>
@@ -209,7 +225,9 @@
     <div class="col">
         <a href="/hn">
             <div class="card h-100">
-                <img src="../static/khu.jpeg" class="card-img-top" alt="...">
+                <div class="card-box">
+                    <img src="../static/khu.jpeg" class="card-img-top" alt="...">
+                </div>
                 <div class="card-body">
                     <h6 class="card-title">김한울/INTP</h6>
                     <p class="card-text">잔잔한 외힙러버</p>
@@ -221,7 +239,9 @@
     <div class="col">
         <a href="/js">
             <div class="card h-100">
-                <img src="../static/js.JPG" class="card-img-top" alt="...">
+                <div class="card-box">
+                    <img src="../static/js.JPG" class="card-img-top" alt="...">
+                </div>
                 <div class="card-body">
                     <h6 class="card-title">이재성/ENFJ</h6>
                     <p class="card-text">열심히하겠습니다.<br> 제발 도와주세요.</p>
@@ -233,7 +253,9 @@
     <div class="col">
         <a href="/hh">
             <div class="card h-100">
-                <img src="../static/jhh.jpeg" class="card-img-top" alt="...">
+                <div class="card-box">
+                    <img src="../static/jhh.jpeg" class="card-img-top" alt="...">
+                </div>
                 <div class="card-body">
                     <h6 class="card-title">조희현/ISFP</h6>
                     <p class="card-text">흥 많은 I 🎵</p>
