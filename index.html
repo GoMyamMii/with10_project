@@ -283,9 +283,6 @@
                 <!-- <p class="comment">코멘트</p> 혹시 몰라서 주석처리 -->
                 <textarea class="form-control" id="comment" rows="3" placeholder="당신의 응원을 입력해주세요."></textarea>
                 <button type="button" class="btn btn-dark mt-3" onClick="save_comment()">응원 남기기</button>
-                <button id="countBtn" class="btn btn-dark mt-3" onclick="good_comment(${numb})">좋아요</button>
-                <span id="count">300</span>개
-                <button class="btn btn-dark mt-3" onclick="delete_comment(${numb})">삭제</button>
             </div>
         </div>
 
@@ -293,12 +290,18 @@
             <div class="card">
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                        <p>화이팅 하세요!</p>
-                        <footer class="blockquote-footer">이재성</footer>
+                         <div style="float:left; width: 8%;">이재성:</div>
+                         <div style="float:left; width: 20%;">화이팅 하세요!</div>
                     </blockquote>
+
+                    <div style="float:left; width: 33%;">
+                        <button id="countBtn" class="btn btn-dark mt-3" onclick="good_comment(${numb})">좋아요</button>
+                <span id="count">300</span>개
+                <button class="btn btn-dark mt-3" onclick="delete_comment(${numb})">삭제</button>
+                    </div>
+                    </div>
                 </div>
-            </div>
-        </div>    
+        </div>
 
     </div>
 
