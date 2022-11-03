@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>친해지조</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!--ajax 코드-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>미니프로젝트_html</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            font-family: 'IBM Plex Sans KR', sans-serif;
+        }
+
+        .text-center {
+            margin: auto;
+            margin-bottom: 50px;
+            margin-top: 20px;
+            width: 900px;
+            text-align: center;
+        }
+
+        .g-4 {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .p01 {
+            word-spacing: 10px
+        }
+
+        .mb-2 {
+            margin-top: 50px;
+            margin-right: 30px;
+            margin-left: 30px;
+            padding-bottom: -70px;
+        }
+
+        .card-bottom {
+            margin-top: 10px;
+        }
+
+
+
+
+        .card-box {
+            position: relative;
+            max-width: 700px;
+            height: 400px;
+        }
+
+        .card-img-top {
+            position: absolute;
+            transform: translate(50,50);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mycards {
+            margin-top: 30px;
+        }
+
+
+
+        .card-header {
+            margin-bottom: 30px;
+        }
+
+        #comment-list > div > p {
+            margin-left: 30px;
+            margin-bottom: 30px;
+
+        }
+
+
+    </style>
+
+
+    <script>
+
+        $(document).ready(function () {
+            show_comment();
+        });
+
+        function show_comment(){
+            $.ajax({
+                type: "GET",
+                url : "/comments",
+                data : {},
+                success: function(response){
+                    let rows = response['comments']
+                    for ( let i = 0; i < rows.length; i++){
+                        let name = rows[i]['name']
+                        let numb = rows[i]['numb']
+                        let comment = rows[i]['comment']
+                        let like = rows[i]['like']
+
+
+                        let temp_html = `
+                                        <div id="comment-box">
+                                            <p class="name">${name}</p>
+                                            <p class="comment">${comment}</p>
+                                            <button id="countBtn" onclick="like_comment(${numb})">좋아요</button><span id="count">${like}</span>개
+                                            <button onclick="delete_comment(${numb})">삭제</button>
+                                        </div>
+                                        `
+                        $('#comment-list').append(temp_html)
+                    }
+                }
+            })
+
+        }
+
+        function save_comment() {
+            let name = $('#name').val()
+            let comment = $('#comment').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/comments",
+                data: {name_give:name, comment_give:comment},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function delete_comment(numb){
+            $.ajax({
+                type: "POST",
+                url: "/comments/delete",
+                data: {numb_give:numb},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function like_comment(like) {
+            $.ajax({
+                type: "POST",
+                url: "/comments/like",
+                data: {like_give: like},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+    </script>
+
+
+</head>
+<body>
+
+<div class="card text-center">
+    <div class="card-header">
+        내일배움캠프 4기
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">React A반 10조_같이 친해지조</h5>
+        <p class="card-text">1. 우리 팀의 특징: 1) 조용하고 낯을 많이 가린다. 2) 모두 비전공자&입문자이다. 3) 전부 다른 지역에 거주 중이다.</p>
+        <p class="card-text">2. 우리 팀의 약속: 1) 팀원 말에 대답 잘 해주기(리액션이라도 꼭 하기!) 2) 시간 약속 잘 지키기</p>
+        <p class="p01">3) 작업이 막히거나 표정이 어두워지면 응원해주기 4) 부정적인 말 지양하기 5) 첫 날 보다 더 친해지기</p>
+        <p class="card-text">3. 우리 팀의 목표: 실력 있는 개발자 동료가 되어주기</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="col">
+        <a href="/cs">
+            <div class="card h-100">
+                <div class="card-box">
+                    <img src="../static/kcs.jpeg" class="card-img-top" alt="cs_image">
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">강창순/INTP</h6>
+                    <p class="card-text">고먐미 좋아하세요?</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="/ng">
+            <div class="card h-100">
+                <div class="card-box">
+                    <img src="../static/kng.jpeg" class="card-img-top" alt="...">
+                </div>
+                    <div class="card-body">
+                    <h6 class="card-title">김남규/ENFP</h6>
+                    <p class="card-text">자유로운 영혼</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="/hn">
+            <div class="card h-100">
+                <div class="card-box">
+                    <img src="../static/khu.jpeg" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">김한울/INTP</h6>
+                    <p class="card-text">잔잔한 외힙러버</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="/js">
+            <div class="card h-100">
+                <div class="card-box">
+                    <img src="../static/js.JPG" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">이재성/ENFJ</h6>
+                    <p class="card-text">열심히하겠습니다.<br> 제발 도와주세요.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="/hh">
+            <div class="card h-100">
+                <div class="card-box">
+                    <img src="../static/jhh.jpeg" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">조희현/ISFP</h6>
+                    <p class="card-text">흥 많은 I 🎵</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+</div>
+
+    <div class="card2 mb-2">
+        <div class="card-header bg-light">
+            <i class="fa fa-comment fa"></i> 응원한마디
+        </div>
+
+        <div id="comment-list">
+            <div id="comment-box">
+                <!-- <p class="name">닉네임</p> 혹시 몰라서 주석처리-->
+                <input class="name" type="text" class="form-control ml-2" placeholder="닉네임 입력" id="name">
+                <!-- <p class="comment">코멘트</p> 혹시 몰라서 주석처리 -->
+                <textarea class="form-control" id="comment" rows="3" placeholder="당신의 응원을 입력해주세요."></textarea>
+                <button type="button" class="btn btn-dark mt-3" onClick="save_comment()">응원 남기기</button>
+                <button id="countBtn" class="btn btn-dark mt-3" onclick="good_comment(${numb})">좋아요</button>
+                <span id="count">300</span>개
+                <button class="btn btn-dark mt-3" onclick="delete_comment(${numb})">삭제</button>
+            </div>
+        </div>
+
+        <div class="mycards" id="comment-list">
+            <div class="card">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>화이팅 하세요!</p>
+                        <footer class="blockquote-footer">이재성</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>    
+
+    </div>
+
+
+</body>
+</html>
