@@ -1,0 +1,74 @@
+:root {
+    --primary: #D81E5B;
+    --secondary: #8A4FFF;
+    --grey: #AAA;
+    --light: #EEE;
+    --dark: #131A26;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+
+    font-family: 'Fira sans', sans-serif;
+}
+
+body {
+    background-color: none;
+}
+
+main {
+    padding: 3rem 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.counter {
+    background-color: var(--dark);
+    padding: 1rem;
+    border-radius: 1rem;
+    color: white;
+}
+
+.counter-value {
+    font-size: 8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.counter-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 -0.5rem;
+}
+
+.counter-controls button {
+    margin: 0 0.5rem;
+}
+
+button {
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    transition: 0.4s ease-out;
+}
+
+button span {
+    display: inline-block;
+    transition: 0.4s ease-out;
+}
+
+button:active {
+    transform: scale(1.1);
+}
+
+
